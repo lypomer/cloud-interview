@@ -4,7 +4,7 @@ case "$1" in
   --help | -h)
     echo "Usage: $0 <minikube-version>"
     echo "Where <minikube-version> is a valid release version tag (defaults to 'latest')"
-    echo "Check their release page: from their release page https://github.com/kubernetes/minikube/releases"
+    echo "Check their release page: https://github.com/kubernetes/minikube/releases"
     exit 0
     ;;
 
@@ -29,7 +29,7 @@ which curl 2>&1 >/dev/null || (echo -e "${red}Error: You must have curl (https:/
 # ---------------------------------- init ----------------------------------- #
 # OS information to select the right binary
 os=$(uname -s | tr '[:upper:]' '[:lower:]')
-arch=$(uname -m)
+arch=$(uname -m | sed 's/x86_64/amd64/g')
 file_name="minikube-${os}-${arch}"
 version=${1:-latest}
 base_release_url="https://github.com/kubernetes/minikube/releases"
