@@ -27,7 +27,7 @@ Then run the script
 👉 You may check the script usage using the `--help` option
 
 The script will:
-1. Check install requirements
+1. Check [install requirements](#prerequisites)
 2. Download the minikube binary
 3. Install the binary
 4. Cleanup the downloaded artefact
