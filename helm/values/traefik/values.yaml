@@ -1,0 +1,33 @@
+---
+api:
+  # -- Enable the dashboard 
+  dashboard: true
+
+ingressRoute:
+  dashboard:
+    # -- Create an IngressRoute for the dashboard
+    enabled: true
+
+providers:
+  kubernetesCRD:
+    enabled: true
+
+  kubernetesIngress:
+    enabled: true
+
+  kubernetesGateway:
+    enabled: false
+
+ports:
+  web:
+    asDefault: true
+    port: 8000
+    hostPort: 80
+    expose:
+      default: true
+    exposedPort: 80
+  # We disable TLS
+  websecure:
+    asDefault: false
+    expose:
+      default: false
