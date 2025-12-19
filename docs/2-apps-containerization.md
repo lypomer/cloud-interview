@@ -13,7 +13,7 @@ This document will provide instructions to build the `apps/hello` and `apps/worl
 💡 Tip: To build the images and have them directly available in minikube, you may point docker to the minikube instance using the following command
 
 ```bash
-eval $(minikube -p <profile> docker-env)
+eval $(minikube -p minikube docker-env)
 ```
 
 ### Manually
