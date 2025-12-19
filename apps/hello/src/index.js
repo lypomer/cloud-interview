@@ -19,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
     format: winston.format.simple()
   }));
 }
+// TODO: add a Datadog transport for production logs collection
 
 // Webserver
 const app = express();

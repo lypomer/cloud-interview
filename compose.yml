@@ -1,0 +1,28 @@
+services:
+  hello:
+    restart: always
+    image: cloud-interview-hello:${TAG:-latest}
+    pull_policy: never
+    build:
+      context: apps/hello
+    environment:
+      - NODE_ENV=dev
+    ports:
+      - 81:3000
+    networks:
+      - webapp_network
+
+  world:
+    restart: always
+    image: cloud-interview-world:${TAG:-latest}
+    pull_policy: never
+    build:
+      context: apps/world
+    ports:
+      - 82:80
+    networks:
+      - webapp_network
+
+networks:
+  webapp_network:
+    driver: bridge
