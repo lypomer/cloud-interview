@@ -28,7 +28,7 @@ target_host_present=$(grep -iE "$minikube_ip.*$target_host" $host_file || true)
 
 if [[ -z $target_host_present ]]; then
     echo -e "${yellow}Minikube started at $minikube_ip, but $target_host missing for resolution"
-    echo "Updating $host_file (sudo privileges required)${reset}"
+    echo -e "Updating $host_file (sudo privileges required)${reset}"
     echo  "$minikube_ip $target_host" | sudo tee -a $host_file > /dev/null
 fi
 
