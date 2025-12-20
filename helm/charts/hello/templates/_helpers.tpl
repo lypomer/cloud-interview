@@ -60,3 +60,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Create the traefik middleware annotations
+*/}}
+{{- define "traefik.middleWare.annotations" }}
+{{- with .Values.ingress }}
+{{- if and .enabled (eq .className "traefik" ) }}
+{{- range .middlewares }}
+traefik.ingress.kubernetes.io/router.middlewares: {{ $.Release.Namespace }}-{{ .name }}@kubernetescrd
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
