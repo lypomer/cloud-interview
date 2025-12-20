@@ -50,27 +50,15 @@ app.kubernetes.io/name: {{ include "hello.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "hello.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "hello.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
-
 
 {{/*
-Create the traefik middleware annotations
+Create the traefik annotations
 */}}
-{{- define "traefik.middleWare.annotations" }}
-{{- with .Values.ingress }}
-{{- if and .enabled (eq .className "traefik" ) }}
-{{- range .middlewares }}
+{{- define "traefik.annotations" }}
+{{- if and .Values.ingress.enabled .Values.traefik.enabled -}}
+traefik.ingress.kubernetes.io/router.entrypoints: web
+{{- range .Values.traefik.middlewares }}
 traefik.ingress.kubernetes.io/router.middlewares: {{ $.Release.Namespace }}-{{ .name }}@kubernetescrd
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

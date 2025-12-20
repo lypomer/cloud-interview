@@ -1,5 +1,5 @@
-{{- with .Values.ingress  -}}
-{{- if and .enabled (eq .className "traefik" ) -}}
+{{- with .Values.traefik  -}}
+{{- if and .enabled -}}
 {{- range .middlewares -}}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware

@@ -5,11 +5,11 @@ metadata:
   name: {{ include "hello.fullname" . }}
   labels:
     {{- include "hello.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+  {{- include "traefik.annotations" . | nindent 4}}
+  {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- include "traefik.middleWare.annotations" . | nindent 4}}
 spec:
   {{- with .Values.ingress.className }}
   ingressClassName: {{ . }}

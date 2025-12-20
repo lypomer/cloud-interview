@@ -1,6 +1,7 @@
 apiVersion: v2
 name: hello
 description: A Helm chart used to deploy the hello app
+kubeVersion: v1.34.0
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
