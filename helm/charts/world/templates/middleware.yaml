@@ -1,0 +1,14 @@
+{{- with .Values.traefik  -}}
+{{- if and .enabled -}}
+{{- range .middlewares -}}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  {{- toYaml .spec  | nindent 2 }}
+{{- end -}}
+{{- end -}}
+{{- end }}
