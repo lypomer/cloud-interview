@@ -1,12 +1,14 @@
-{{- if and .Values.ingress.enabled (eq .Values.ingress.className "traefik" ) -}}
+{{- with .Values.ingress  -}}
+{{- if and .enabled (eq .className "traefik" ) -}}
+{{- range .middlewares -}}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: stripprefix
-  namespace: {{ .Release.Namespace }}
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
 
 spec:
-  stripPrefix:
-    prefixes:
-      - /hello
+  {{- toYaml .spec  | nindent 2 }}
+{{- end -}}
+{{- end -}}
 {{- end }}

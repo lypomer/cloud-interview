@@ -64,9 +64,12 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 
-  middleware:
+  middlewares:
     - name: stripprefix
-      type: stripPrefix
+      spec:
+        stripPrefix:
+          prefixes:
+            - /hello
   
   hosts:
     - host: ornikar.dev
