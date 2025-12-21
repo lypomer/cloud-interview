@@ -45,3 +45,8 @@ Using a challenger like [Highlight](https://github.com/highlight/highlight) coul
 With GenAI bots are becoming increasly aggresive when it comes to scraping web pages, which could result in more CPU and network expanse from the company. And degrade the service for the user.
 
 A good protection would be to add an AI firewall such as [Anubis](https://github.com/TecharoHQ/anubis) which is opensource, or use [Cloudflare's Bot Management](https://www.cloudflare.com/application-services/products/bot-management/)
+
+# Threat management
+Another consideration to reduce threats and improve the system performance (such as CPU profiling) would be to consider [eBPF tracing tools](https://www.brendangregg.com/ebpf.html) to monitor kernel events or network calls.
+
+This could be done by deploying [cilium](https://cilium.io/) or [pixie](https://docs.px.dev/) in the cluster.
