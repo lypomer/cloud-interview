@@ -4,21 +4,21 @@ provider "aws" {
 
 # Setup netwokring
 module "eks_vpc" {
-  source = "../../modules/vpc"
+  source = "../../modules/networking/vpc"
 
   vpc_cidr_block = var.vpc_cidr_block
   environment    = local.environment
 }
 
 module "igw" {
-  source = "../../modules/igw"
+  source = "../../modules/networking/igw"
 
   environment = local.environment
   vpc_id      = module.eks_vpc.vpc_id
 }
 
 module "subnets" {
-  source = "../../modules/subnets"
+  source = "../../modules/networking/subnets"
 
   vpc_id           = module.eks_vpc.vpc_id
   region           = var.region
@@ -28,7 +28,7 @@ module "subnets" {
 }
 
 module "nat" {
-  source = "../../modules/nat"
+  source = "../../modules/networking/nat"
 
   environment        = local.environment
   public_subnets_ids = [module.subnets.public_subnets_ids[0]] # We can deploy only one nat
@@ -36,7 +36,7 @@ module "nat" {
 }
 
 module "routes" {
-  source = "../../modules/routes"
+  source = "../../modules/networking/routes"
 
   vpc_id              = module.eks_vpc.vpc_id
   nat_gateway_id      = module.nat.nat_gateway_ids[0]
