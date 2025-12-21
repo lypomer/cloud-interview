@@ -1,7 +1,7 @@
 resource "aws_subnet" "public" {
-  for_each = local.subnets["public"]
+  for_each = var.subnets["public"]
 
-  vpc_id = aws_vpc.eks_vpc.id
+  vpc_id = var.vpc_id
 
   cidr_block              = each.value.cidr_block
   availability_zone       = each.value.az
@@ -15,9 +15,9 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  for_each = local.subnets["private"]
+  for_each = var.subnets["private"]
 
-  vpc_id = aws_vpc.eks_vpc.id
+  vpc_id = var.vpc_id
 
   cidr_block        = each.value.cidr_block
   availability_zone = each.value.az

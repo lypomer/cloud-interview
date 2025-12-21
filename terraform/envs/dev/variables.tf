@@ -10,12 +10,6 @@ variable "vpc_cidr_block" {
   description = "The base CIDR block to setup the VPC network"
 }
 
-variable "environment" {
-  type        = string
-  default     = "dev"
-  description = "Target environment used for labelling"
-}
-
 variable "kubernetes_version" {
   type        = string
   default     = "1.34"

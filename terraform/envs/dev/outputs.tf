@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value       = module.networking.vpc_id
+  value       = module.eks_vpc.vpc_id
   description = "The created VPC id"
 }
 
