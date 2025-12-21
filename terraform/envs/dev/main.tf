@@ -4,11 +4,11 @@ provider "aws" {
 
 # Setup netwokring
 module "networking" {
-  source = "./modules/networking"
+  source = "../../modules/networking"
 
   region           = var.region
   vpc_cidr_block   = var.vpc_cidr_block
-  environment      = var.environment
+  environment      = local.environment
   eks_cluster_name = local.eks_cluster_name
 }
 
@@ -17,14 +17,14 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "21.10.1"
 
-  name               = "${var.environment}-eks-cluster"
+  name               = "${local.environment}-eks-cluster"
   kubernetes_version = var.kubernetes_version
 
   subnet_ids = module.networking.private_subnets_ids
   vpc_id     = module.networking.vpc_id
 
   tags = {
-    environment = var.environment
+    environment = local.environment
   }
 
   eks_managed_node_groups = {
