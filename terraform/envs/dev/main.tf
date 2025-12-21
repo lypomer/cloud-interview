@@ -45,6 +45,17 @@ module "routes" {
   igw_id              = module.igw.igw_id
 }
 
+# Create a bastion to administrate the cluster
+module "bastion" {
+  source = "../../modules/compute/bastion"
+
+  ssh_public_key_path = var.ssh_public_key_path
+  environment         = local.environment
+  vpc_id              = module.eks_vpc.vpc_id
+  public_subnet_id    = module.subnets.public_subnets_ids[0]
+  maintainer_ip       = var.maintainer_ip
+}
+
 # Create EKS cluster
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
