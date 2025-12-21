@@ -2,13 +2,14 @@
 Creates Subnets
 
 # Variables
-| Key              | Type   | Description                                     |
-|------------------|--------|-------------------------------------------------|
-| vpc_id           | string | the target VPC id                               |
-| region           | string | The target AWS region to deploy the EKS cluster |
-| vpc_cidr_block   | string | The base CIDR block to setup the VPC network    |
-| environment      | string | the target environment label                    |
-| eks_cluster_name | string | The kubernetes version to install in EKS        |
+| Key              | Type       | Description                                     |
+|------------------|------------|-------------------------------------------------|
+| vpc_id           | string     | the target VPC id                               |
+| region           | string     | The target AWS region to deploy the EKS cluster |
+| environment      | string     | the target environment label                    |
+| eks_cluster_name | string     | The kubernetes version to install in EKS        |
+| subnets          | object({}) | The subnets definition                          |
+
 
 # Outputs
 | Key                 | Description                    |

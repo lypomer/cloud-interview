@@ -22,9 +22,9 @@ module "subnets" {
 
   vpc_id           = module.eks_vpc.vpc_id
   region           = var.region
-  vpc_cidr_block   = var.vpc_cidr_block
   environment      = local.environment
   eks_cluster_name = local.eks_cluster_name
+  subnets          = local.subnets
 }
 
 module "nat" {
