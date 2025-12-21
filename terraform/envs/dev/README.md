@@ -17,3 +17,4 @@ This implementation provides a dev EKS cluster
 | vpc_id       | The created VPC id       |
 | eks_endpoint | The EKS cluster endpoint |
 | eks_id       | The EKS cluster id       |
+| bastion_ip   | The bastion IP           |

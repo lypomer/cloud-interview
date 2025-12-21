@@ -12,3 +12,9 @@ output "eks_id" {
   value       = module.eks.cluster_id
   description = "The EKS cluster id"
 }
+
+output "bastion_ip" {
+  value       = module.bastion.bastion_ip
+  description = "The bastion IP"
+}
+

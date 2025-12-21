@@ -7,6 +7,11 @@ This project provides infrastructure code to setup a VPC and an EKS running on t
 
 # Prerequisites
 - [terraform](https://developer.hashicorp.com/terraform) >= 1.14
+- Create an SSH key pair to deploy the bastion to administrate the cluster
+```bash
+# You may create one using th following command, (e.g. stored in $HOME/.ssh/ec2-bastion) 
+ssh-keygen -t rsa -b 4096
+```
 
 # Usage
 The backend will be initialized locally by default, a better practice would be to upload the state in an s3 bucket using a lockfile system with dynamoDB or use a supported terraform backend such as [GitLab](https://docs.gitlab.com/administration/terraform_state/)
@@ -19,10 +24,10 @@ cd envs/dev
 # Init the backend
 terraform init
 
-# Using default values
-terraform plan -out new-eks-cluster
+# Setting up the bastion (only on dev)
+terraform plan  -var="ssh_public_key_path=${HOME}$/.ssh/ec2-bastion.pub" ---out new-eks-cluster
 
-# Or targeting another kubernetes version
+# Or targeting another kubernetes version (no bastion on staging and prod)
 terraform plan -var="kubernetes_version=1.30" -out new-eks-cluster
 ```
 
