@@ -1,6 +1,5 @@
-
 <div align="center">
-  <h1>Hell/World deployement instructions</h1>
+  <h1>Hello/World deployement instructions</h1>
 </div>
 
 ## Introduction
