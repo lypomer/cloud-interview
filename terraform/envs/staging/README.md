@@ -1,6 +1,6 @@
-# Prod EKS cluster
+# Staging EKS cluster
 
-This implementation provides a production EKS cluster
+This implementation provides a staging EKS cluster
 
 # Variables
 | Key                | Type         | Default      | Description                                     |
