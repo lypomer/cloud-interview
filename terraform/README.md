@@ -13,13 +13,16 @@ The backend will be initialized locally by default, a better practice would be t
 
 To create a new VPC and EKS cluster running on top you can do the following
 ```bash
-# Select a new environment (e.g. a dev one)
+# Select an environment (e.g. the dev one)
 cd envs/dev
+
+# Init the backend
+terraform init
 
 # Using default values
 terraform plan -out new-eks-cluster
 
-# Or targeting another environment
+# Or targeting another kubernetes version
 terraform plan -var="kubernetes_version=1.30" -out new-eks-cluster
 ```
 

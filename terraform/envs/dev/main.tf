@@ -3,13 +3,46 @@ provider "aws" {
 }
 
 # Setup netwokring
-module "networking" {
-  source = "../../modules/networking"
+module "eks_vpc" {
+  source = "../../modules/vpc"
 
+  vpc_cidr_block = var.vpc_cidr_block
+  environment    = local.environment
+}
+
+module "igw" {
+  source = "../../modules/igw"
+
+  environment = local.environment
+  vpc_id      = module.eks_vpc.vpc_id
+}
+
+module "subnets" {
+  source = "../../modules/subnets"
+
+  vpc_id           = module.eks_vpc.vpc_id
   region           = var.region
   vpc_cidr_block   = var.vpc_cidr_block
   environment      = local.environment
   eks_cluster_name = local.eks_cluster_name
+}
+
+module "nat" {
+  source = "../../modules/nat"
+
+  environment        = local.environment
+  public_subnets_ids = [module.subnets.public_subnets_ids[0]] # We can deploy only one nat
+  depends_on         = [module.igw]                           # Creation will fail if igw is not ready
+}
+
+module "routes" {
+  source = "../../modules/routes"
+
+  vpc_id              = module.eks_vpc.vpc_id
+  nat_gateway_id      = module.nat.nat_gateway_ids[0]
+  public_subnets_ids  = module.subnets.public_subnets_ids
+  private_subnets_ids = module.subnets.private_subnets_ids
+  igw_id              = module.igw.igw_id
 }
 
 # Create EKS cluster
@@ -20,8 +53,8 @@ module "eks" {
   name               = "${local.environment}-eks-cluster"
   kubernetes_version = var.kubernetes_version
 
-  subnet_ids = module.networking.private_subnets_ids
-  vpc_id     = module.networking.vpc_id
+  subnet_ids = module.subnets.private_subnets_ids
+  vpc_id     = module.eks_vpc.vpc_id
 
   tags = {
     environment = local.environment
